@@ -1,0 +1,58 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f0f8ff;
+}
+
+.stdform {
+  border: 1px solid #3498db;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+
+h1,
+label,
+legend {
+  color: #34495e;
+}
+
+hr {
+  border: 1px solid #3498db;
+  margin-top: 20px;
+}
+
+.studLogs,
+.studLogs th,
+.studLogs td {
+  color: #34495e;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+.studLogs {
+  width: 100%;
+  min-width: 1200px;
+}
+
+table{
+  width: 100%;
+  table-layout: auto;
+}
+
+table th,table td{
+  white-space: nowrap;
+  text-align: center;
+  padding:10px;
+}
+
+.thead {
+  background-color: #3498db;
+}

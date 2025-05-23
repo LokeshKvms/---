@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>- - - D I A M O N D - - -</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: #f0f4f8;
+                margin: 0;
+                text-align: center;
+            }
+
+            h2 {
+                color: #333;
+                font-size: 2rem;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            input,
+            button {
+                padding: 12px 20px;
+                font-size: 16px;
+                margin: 10px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                outline: none;
+                transition: all 0.3s ease;
+            }
+
+            input:focus,
+            button:focus {
+                border-color: #007BFF;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+            button {
+                background-color: #007BFF;
+                color: white;
+                cursor: pointer;
+                border: none;
+                font-weight: bold;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            .grid {
+                display: inline-block;
+                margin-top: 20px;
+                border-radius: 10px;
+                /* border: 2px solid #007BFF; */
+                /* padding: 10px; */
+            }
+
+            .row {
+                display: flex;
+            }
+
+            .block {
+                width: 30px;
+                height: 30px;
+                box-sizing: border-box;
+                transition: background 0.3s, transform 0.2s;
+                /* background-color: white; */
+                /* border: 1px solid #ccc; */
+                /* margin: 2px; */
+            }
+            
+            .filled {
+                border-radius: 5px;
+                background-color: #007BFF;
+                border: 1px solid #ccc;
+                border: inset;
+            }
+
+            .block.filled:hover {
+                background-color: #0056b3;
+                transform: scale(1.1);
+            }
+
+            @media (max-width: 768px) {
+                .block {
+                    width: 20px;
+                    height: 20px;
+                    margin: 1px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <h2>D I A M O N D</h2>
+        <input type="number" id="size" min="1" placeholder="Enter n"/>
+        <button id="generate">Generate Matrix</button><br>
+
+        <div class="grid" id="gridContainer"></div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function isInRhombus(i, j, n) {
+                let half = n / 2;
+
+                if (n % 2 !== 0) {
+                    const center = Math.floor(half);
+                    return Math.abs(i - center) + Math.abs(j - center) <= center;
+                }
+
+                const centerTopLeft = half - 1;
+                const centerBottomRight = half;
+                const verticalDist = Math.min(
+                    Math.abs(i - centerTopLeft),
+                    Math.abs(i - centerBottomRight)
+                );
+
+                const horizontalDist = Math.min(
+                    Math.abs(j - centerTopLeft),
+                    Math.abs(j - centerBottomRight)
+                );
+
+                return verticalDist + horizontalDist <= centerBottomRight - 1;
+            }
+
+            $('#size').focus().keydown(function(e){
+                if(e.key==='Enter'){
+                    e.preventDefault();
+                    $('#generate').click();
+                }
+            })
+
+            $("#generate").click(function () {
+                let n = parseInt($("#size").val());
+                if (isNaN(n) || n < 1) {
+                    alert("Please enter a valid number greater than 0");
+                    return;
+                }
+
+                let $grid = $("#gridContainer");
+                $grid.empty();
+
+                for (let i = 0; i < n; i++) {
+                    let $row = $("<div>").addClass("row");
+                    for (let j = 0; j < n; j++) {
+                        let $block = $("<div>").addClass("block");
+                        if (isInRhombus(i, j, n)) {
+                            $block.addClass("filled");
+                        }
+                        $row.append($block);
+                    }
+                    $grid.append($row);
+                }
+            });
+        </script>
+
+    </body>
+
+</html>
